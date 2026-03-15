@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Katosh</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
   <meta name="description" content="Katosh builds websites and apps. View launched projects and get in touch.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -65,6 +66,15 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+    .brand-logo {
+      width: 34px;
+      height: 34px;
     }
     .wordmark {
       font-family: var(--heading);
@@ -449,7 +459,10 @@
 
   <header>
     <div class="container">
-      <div class="wordmark">katosh</div>
+      <div class="brand">
+        <img class="brand-logo" src="favicon.svg" alt="Katosh logo">
+        <div class="wordmark">katosh</div>
+      </div>
       <div class="header-nav">
         <a class="nav-link" href="#projects">Projects</a>
         <a class="nav-link" href="#" onclick="openContact(event)">Contact</a>
@@ -473,6 +486,16 @@
       </div>
 
       <div class="project-grid">
+        <div class="project-card">
+          <img class="project-icon-img" src="show-primer-icon.png" alt="Show Primer icon">
+          <div class="project-name">Show Primer</div>
+          <div class="project-desc">A concert prep app that builds Apple Music playlists from an artist's recent setlists. Search any artist, see what they've been playing on tour, and create a playlist to get ready for the show.</div>
+          <div class="project-footer">
+            <span class="project-tag">iOS &middot; Swift</span>
+            <a class="project-link" href="https://apps.apple.com/us/app/show-primer/id6759538899" target="_blank" rel="noopener">App Store &rarr;</a>
+          </div>
+        </div>
+
         <div class="project-card">
           <img class="project-icon-img" src="ship-names-icon.png" alt="Ship Names icon">
           <div class="project-name">Ship Names</div>
