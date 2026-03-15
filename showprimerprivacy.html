@@ -15,7 +15,7 @@
       --fg: #0f172a;
       --fg-secondary: #64748b;
       --bg: #ffffff;
-      --bg-section: #f8fafc;
+      --bg-section: #f0f0ff;
       --accent: #6366f1;
       --accent-light: #818cf8;
       --accent-bg: rgba(99,102,241,0.06);
@@ -57,6 +57,7 @@
     /* ---- Header ---- */
     header {
       padding: 2.5rem 0;
+      background: #1e1b4b;
     }
     header .container {
       display: flex;
@@ -68,7 +69,7 @@
       font-size: 1.2rem;
       font-weight: 700;
       letter-spacing: -0.02em;
-      color: var(--fg);
+      color: #fff;
       text-decoration: none;
     }
     .header-nav {
@@ -79,15 +80,15 @@
       font-family: var(--body);
       font-size: 0.82rem;
       font-weight: 500;
-      color: var(--fg-secondary);
+      color: rgba(255,255,255,0.7);
       text-decoration: none;
       padding: 0.5rem 1rem;
       border-radius: 10px;
       transition: background 0.2s ease, color 0.2s ease;
     }
     .nav-link:hover {
-      background: var(--accent-bg);
-      color: var(--accent);
+      background: rgba(255,255,255,0.1);
+      color: #fff;
     }
 
     /* ---- Policy Content ---- */
@@ -151,7 +152,7 @@
     /* ---- Footer ---- */
     footer {
       padding: 3.5rem 0 4rem;
-      border-top: 1px solid var(--border);
+      background: #1e1b4b;
     }
     footer .container {
       display: flex;
@@ -160,14 +161,18 @@
     }
     .footer-text {
       font-size: 0.88rem;
-      color: var(--fg-secondary);
+      color: rgba(255,255,255,0.7);
     }
     .footer-text a {
       font-weight: 500;
+      color: var(--accent-light);
+    }
+    .footer-text a:hover {
+      color: #fff;
     }
     .footer-copy {
       font-size: 0.78rem;
-      color: var(--fg-secondary);
+      color: rgba(255,255,255,0.5);
     }
 
     @media (max-width: 640px) {
