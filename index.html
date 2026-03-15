@@ -263,6 +263,119 @@
       gap: 0.5rem;
     }
 
+    /* ---- Contact Modal ---- */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15,23,42,0.5);
+      backdrop-filter: blur(4px);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+    .modal-overlay.active {
+      display: flex;
+    }
+    .modal {
+      background: var(--bg);
+      border-radius: 20px;
+      padding: 2.5rem;
+      width: 100%;
+      max-width: 480px;
+      position: relative;
+      box-shadow: 0 25px 60px rgba(0,0,0,0.15);
+      animation: modalIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+    .modal-close {
+      position: absolute;
+      top: 1.2rem;
+      right: 1.2rem;
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--fg-secondary);
+      cursor: pointer;
+      width: 32px;
+      height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 8px;
+      transition: background 0.2s ease;
+    }
+    .modal-close:hover {
+      background: var(--bg-section);
+    }
+    .modal h2 {
+      font-family: var(--heading);
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.4rem;
+    }
+    .modal p {
+      color: var(--fg-secondary);
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    .form-group label {
+      display: block;
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--fg);
+      margin-bottom: 0.35rem;
+    }
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      font-family: var(--body);
+      font-size: 0.9rem;
+      padding: 0.65rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--bg);
+      color: var(--fg);
+      outline: none;
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .form-group input:focus,
+    .form-group textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-bg);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+    .form-submit {
+      width: 100%;
+      font-family: var(--body);
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--accent);
+      border: none;
+      padding: 0.75rem;
+      border-radius: 12px;
+      cursor: pointer;
+      margin-top: 0.5rem;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 1px 3px rgba(99,102,241,0.2), 0 4px 12px rgba(99,102,241,0.15);
+    }
+    .form-submit:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 2px 6px rgba(99,102,241,0.25), 0 8px 20px rgba(99,102,241,0.2);
+    }
+
     /* ---- Footer ---- */
     footer {
       padding: 3.5rem 0 4rem;
@@ -332,7 +445,7 @@
       <div class="wordmark">katosh</div>
       <div class="header-nav">
         <a class="nav-link" href="#projects">Projects</a>
-        <a class="nav-link" href="mailto:joshular@proton.me">Contact</a>
+        <a class="nav-link" href="#" onclick="openContact(event)">Contact</a>
       </div>
     </div>
   </header>
@@ -341,7 +454,7 @@
     <div class="container">
       <h1 class="fade-up">We build websites &amp; apps that <span class="gradient-text">ship</span>.</h1>
       <p class="fade-up">Independent developers who design and build for web and mobile &mdash; from first idea to launched product.</p>
-      <a class="hero-cta fade-up" href="mailto:joshular@proton.me">Start a project &rarr;</a>
+      <a class="hero-cta fade-up" href="#" onclick="openContact(event)">Start a project &rarr;</a>
     </div>
   </section>
 
@@ -379,10 +492,55 @@
 
   <footer>
     <div class="container">
-      <div class="footer-text">Have a project? <a href="mailto:joshular@proton.me">Get in touch</a>.</div>
+      <div class="footer-text">Have a project? <a href="#" onclick="openContact(event)">Get in touch</a>.</div>
       <div class="footer-copy">&copy; 2026 Katosh</div>
     </div>
   </footer>
+
+  <!-- Contact Modal -->
+  <div class="modal-overlay" id="contactModal">
+    <div class="modal">
+      <button class="modal-close" onclick="closeContact()">&times;</button>
+      <h2>Get in touch</h2>
+      <p>Tell us about your project or ask us a question and we'll get back to you.</p>
+      <form action="https://formsubmit.co/joshular@proton.me" method="POST">
+        <input type="hidden" name="_subject" value="New inquiry from katosh.com">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="https://katosh.com">
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text" id="name" name="name" required placeholder="Your name">
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required placeholder="you@example.com">
+        </div>
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" required placeholder="Tell us about your project or ask us a question..."></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send message</button>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function openContact(e) {
+      e.preventDefault();
+      document.getElementById('contactModal').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeContact() {
+      document.getElementById('contactModal').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    document.getElementById('contactModal').addEventListener('click', function(e) {
+      if (e.target === this) closeContact();
+    });
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') closeContact();
+    });
+  </script>
 
 </body>
 </html>
