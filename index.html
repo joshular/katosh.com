@@ -531,26 +531,34 @@
   <div class="modal-overlay" id="contactModal">
     <div class="modal">
       <button class="modal-close" onclick="closeContact()">&times;</button>
-      <h2>Get in touch</h2>
-      <p>Tell us about your project or ask us a question and we'll get back to you.</p>
-      <form action="https://formsubmit.co/joshular@proton.me" method="POST">
-        <input type="hidden" name="_subject" value="New inquiry from katosh.com">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_next" value="https://katosh.com">
-        <div class="form-group">
-          <label for="name">Name</label>
-          <input type="text" id="name" name="name" required placeholder="Your name">
-        </div>
-        <div class="form-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required placeholder="you@example.com">
-        </div>
-        <div class="form-group">
-          <label for="message">Message</label>
-          <textarea id="message" name="message" required placeholder="Tell us about your project or ask us a question..."></textarea>
-        </div>
-        <button type="submit" class="form-submit">Send message</button>
-      </form>
+      <div id="contactFormContent">
+        <h2>Get in touch</h2>
+        <p>Tell us about your project or ask us a question and we'll get back to you.</p>
+        <form id="contactForm" action="https://formsubmit.co/joshular@proton.me" method="POST" target="formsubmit-target">
+          <input type="hidden" name="_subject" value="New inquiry from katosh.com">
+          <input type="hidden" name="_captcha" value="false">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" name="name" required placeholder="Your name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required placeholder="you@example.com">
+          </div>
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" required placeholder="Tell us about your project or ask us a question..."></textarea>
+          </div>
+          <button type="submit" id="contactSubmit" class="form-submit">Send message</button>
+        </form>
+      </div>
+      <iframe name="formsubmit-target" style="display:none"></iframe>
+      <div id="contactSuccess" style="display:none;text-align:center;padding:2rem 0;">
+        <div style="font-size:2.5rem;margin-bottom:1rem;">&#10003;</div>
+        <h2 style="margin-bottom:0.5rem;">Message sent!</h2>
+        <p style="margin-bottom:1.5rem;">Thanks for reaching out — we'll get back to you soon.</p>
+        <button class="form-submit" onclick="closeContact()">Close</button>
+      </div>
     </div>
   </div>
 
@@ -563,12 +571,30 @@
     function closeContact() {
       document.getElementById('contactModal').classList.remove('active');
       document.body.style.overflow = '';
+      // Reset form for next open
+      document.getElementById('contactForm').reset();
+      document.getElementById('contactFormContent').style.display = '';
+      document.getElementById('contactSuccess').style.display = 'none';
+      var btn = document.getElementById('contactSubmit');
+      btn.disabled = false;
+      btn.textContent = 'Send message';
     }
     document.getElementById('contactModal').addEventListener('click', function(e) {
       if (e.target === this) closeContact();
     });
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape') closeContact();
+    });
+    document.getElementById('contactForm').addEventListener('submit', function() {
+      var btn = document.getElementById('contactSubmit');
+      btn.disabled = true;
+      btn.textContent = 'Sending...';
+      var iframe = document.querySelector('iframe[name="formsubmit-target"]');
+      iframe.onload = function() {
+        document.getElementById('contactFormContent').style.display = 'none';
+        document.getElementById('contactSuccess').style.display = '';
+        iframe.onload = null;
+      };
     });
   </script>
 
